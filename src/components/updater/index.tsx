@@ -1,10 +1,10 @@
 import { Modal, ModalBody, ModalHeader,Button, ModalOverlay, useDisclosure, Box, ModalContent, IconButton, ModalCloseButton, ModalFooter, Icon } from "@chakra-ui/react"
 import React, { useEffect, useState } from "react"
-import { TauriEvent, listen } from '@tauri-apps/api/event';
+
 import { Progress } from '@chakra-ui/react'
 import { CheckIcon, WarningIcon } from "@chakra-ui/icons";
 import { UpdaterStatus } from "@/types/updater.d";
-import { invoke } from "@tauri-apps/api/tauri";
+
 
 let chunk:number = 0
 
@@ -23,60 +23,7 @@ export const Updater=()=>{
 
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [overlay, setOverlay] = React.useState(<OverlayOne />)
-    useEffect(()=>{
-        /* 监听检查更新下载进度 */
-        listen(TauriEvent.DOWNLOAD_PROGRESS, (e: any) => {
-            console.warn('listen',e)
-            setUpdateStatus(UpdaterStatus.DOWNLOAD_PROGRESS)
-            if(e?.payload?.chunkLength){
-                chunk  += e.payload.chunkLength
-                setProgressInfo((chunk / e.payload.contentLength)*100)
-            }
-        })
-        /* 监听下载状态 */
-        listen(TauriEvent.STATUS_UPDATE,(e: any)=>{
-            console.warn('e----状态',e)
-            if(e?.payload?.status==='DONE'){
-                setTimeout(()=>{
-                    setUpdateStatus(UpdaterStatus.DOWNLOADED)
-                },500)
-            }
-        })
-        /* 监听自动更新状态-强制更新 */
-        listen('silent_install_dialog_envet',(e: any)=>{
-            console.warn('silent_install_dialog_envet---',JSON.parse(e.payload))
-            setUpdaterInfo(JSON.parse(e.payload))
-            setSilentUpdate(false)
-            setUpdateStatus(UpdaterStatus.SILENT)
-            onOpen()
-        })
-        /* 监听手动更新状态 */
-        listen('prompt_for_install_dialog_envet',(e:any)=>{
-            console.warn('prompt_for_install_dialog_envet---',JSON.parse(e.payload))
-            setUpdaterInfo(JSON.parse(e.payload))
-            setSilentUpdate(true)
-            setUpdateStatus(UpdaterStatus.PROMPT)
-            onOpen()
-        })
-        /* 监听已是最新版本状态 */
-        listen('already_up_to_date_dialog_envet',(e: any)=>{
-            console.warn('already_up_to_date_dialog_envet---',JSON.parse(e.payload))
-            setUpdaterInfo(JSON.parse(e.payload))
-            setUpdateStatus(UpdaterStatus.ALREADY_UPDATE)
-            setSilentUpdate(false)
-            onOpen()
-        })
-    },[onClose, onOpen])
 
-    /* 重启 */
-    const handleRestart = async ()=>{
-        onClose()
-        await invoke('app_restart')
-    }
-    /* 更新安装包 */
-    const handleUpdate=async ()=>{
-        await invoke('download_and_install')
-    }
     return (
         <>
             {/* <Button
@@ -117,8 +64,8 @@ export const Updater=()=>{
                         </Box>}
                     </ModalBody>
                     <ModalFooter>
-                        {[UpdaterStatus.SILENT,UpdaterStatus.PROMPT].includes(updateStatus)&&<Button mr={3} colorScheme='blue' onClick={handleUpdate}>更新</Button>}
-                        {[UpdaterStatus.DOWNLOADED].includes(updateStatus)&&<Button mr={3} colorScheme='blue' onClick={handleRestart}>重启</Button>}
+                        {[UpdaterStatus.SILENT,UpdaterStatus.PROMPT].includes(updateStatus)&&<Button mr={3} colorScheme='blue' >更新</Button>}
+                        {[UpdaterStatus.DOWNLOADED].includes(updateStatus)&&<Button mr={3} colorScheme='blue' >重启</Button>}
                         {[UpdaterStatus.ALREADY_UPDATE].includes(updateStatus)&&<Button mr={3} colorScheme='blue' onClick={onClose}>确定</Button>}
                         {silentUpdate&&<Button onClick={onClose}>取消</Button>}
                     </ModalFooter>
