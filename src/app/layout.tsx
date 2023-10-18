@@ -9,6 +9,9 @@ export default function RootLayout({ children }: any) {
 
   return (
     <html>
+      <head>
+        <link rel="manifest" href="/site.webmanifest"></link>
+      </head>
       <body className={'h-screen w-full bg-gray-100 dark:bg-zinc-950'}>
         <ChakraProvider theme={theme}>
           <ColorModeScript initialColorMode={theme.config.initialColorMode} />

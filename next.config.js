@@ -5,7 +5,8 @@ const { i18n } = require('./next-i18next.config');
 const nextConfig = {
   // i18n,
   basePath: '',
-  output: 'export',
+  // output: 'export',
+  output: 'standalone',
   images: {
     unoptimized: true,
   },
