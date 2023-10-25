@@ -10,7 +10,8 @@ export default function RootLayout({ children }: any) {
   return (
     <html>
       <head>
-        <link rel="manifest" href="/site.webmanifest"></link>
+        <link rel="manifest" href="/site.webmanifest" />
+        <script src="/serviceWorkerRegister.js" defer></script>
       </head>
       <body className={'h-screen w-full bg-gray-100 dark:bg-zinc-950'}>
         <ChakraProvider theme={theme}>
