@@ -63,10 +63,10 @@ const Navbar = () => {
                     ? (item.activeIcon as any)
                     : (item.icon as any)
                 }
-                w={'20px'}
-                h={'20px'}
+                w={'22px'}
+                h={'22px'}
               />
-              <Box className='text-xs mt-2 scale-90'>
+              <Box className='text-base scale-90 mt-1'>
                 {item.label}
               </Box>
             </Box>

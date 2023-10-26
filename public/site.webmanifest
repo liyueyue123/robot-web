@@ -1,6 +1,6 @@
 {
-    "name": "Robot Web",
-    "short_name": "ChisonGpt",
+    "name": "Robot",
+    "short_name": "Robot",
     "icons": [
       {
         "src": "/android-chrome-192x192.png",

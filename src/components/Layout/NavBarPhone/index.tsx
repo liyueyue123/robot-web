@@ -61,8 +61,8 @@ const NavbarPhone = () => {
             }}
           >
             <Badge isDot count={0}>
-              <MyIcon name={item.icon as any} width={'20px'} height={'20px'} />
-              <Box fontSize={'12px'}>{item.label}</Box>
+              <MyIcon name={item.icon as any} width={'22px'} height={'22px'} />
+              <Box className='text-base'>{item.label}</Box>
             </Badge>
           </Flex>
         ))}
