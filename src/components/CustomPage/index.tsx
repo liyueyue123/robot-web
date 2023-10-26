@@ -21,7 +21,7 @@ const ChisonLinks = (props: {customInfo?: PageRouterEntity}) => {
 
   return (
     <>
-      <Box className='w-full text-2xl font-bold text-blue-700 pb-6'>我的{customInfo?.label}</Box>
+      <Box className='w-full text-2xl font-bold text-blue-700 pb-6'>{customInfo?.label}</Box>
       {customInfo&&Array.isArray(customInfo.ItemList)&&customInfo.ItemList.length>0?<Grid
         gridTemplateColumns={['1fr', 'repeat(3,1fr)', 'repeat(4,1fr)', 'repeat(5,1fr)']}
         gridGap={5}

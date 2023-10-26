@@ -3,6 +3,7 @@
 import NavbarPhone from "@/components/Layout/NavBarPhone";
 import Navbar from "@/components/Layout/Navbar";
 import { useScreenWidth } from "@/hooks/useScreenWidth";
+import { Spinner } from "@chakra-ui/react";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
@@ -25,7 +26,18 @@ export default function PageLayout({ children }: { children: JSX.Element }) {
 
   return (
     <>
-    {isPc?
+    {
+      typeof isPc !=='boolean' ?
+      <div className='w-full h-full flex items-center justify-center'>
+        <Spinner
+          thickness='4px'
+          speed='0.65s'
+          emptyColor='gray.200'
+          color='blue.500'
+          size='xl'
+        />
+      </div>
+      :isPc?
       <div className='w-full h-full flex flex-col'>
           <div className='w-full h-full flex-1 flex flex-row'>
             <Navbar />

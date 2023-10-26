@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 /* 获取屏幕宽度 */
 export const useScreenWidth= () => {
     const [screenWidth,setScreenWidth]= useState<number>()
-    const [isPc,setIsPc]= useState<boolean>(true)
+    const [isPc,setIsPc]= useState<boolean>()
 
     useEffect(()=>{
         if(screenWidth){
